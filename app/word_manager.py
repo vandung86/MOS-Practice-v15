@@ -13,37 +13,16 @@ class WordManager:
             self.logger
         )
 
-    def download(self, project_name):
-        """
-        Download Project Word thông qua UpdateManager.
-        Trả về đường dẫn file trong cache.
-        """
-
-        return self.update.download_project(
-            project_name
-        )
-
+    
     def open(self, project_name):
         """
         Mở file Word của Project.
         Nếu chưa có trong cache thì tải trước.
         """
 
-        if self.update.need_download(project_name):
-
-            print("Project cần cập nhật -> Download")
-
-            self.logger.info(
-                f"Updating {project_name}"
-            )
-
-            path = self.download(project_name)
-
-        else:
-
-            filename = f"{project_name}.docx"
-
-            path = CACHE_DIR / filename
+        path = self.update.prepare_project(
+            project_name
+        )
 
         os.startfile(path)
 

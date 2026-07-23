@@ -54,12 +54,8 @@ class UpdateManager:
         return self.cache.get_file_path(
             filename
         )
-
-        self.logger.info(
-            f"Downloading {project_name}"
-        )
+     
     
-
     def download_questions(self):
         """
         Download questions.json từ Cloud.
@@ -154,5 +150,27 @@ class UpdateManager:
         )
 
         return False
-    
+
+    def prepare_project(self, project_name):
+        """
+        Chuẩn bị Project trước khi mở.
+        """
+
+        if self.need_download(project_name):
+
+            print("Project cần cập nhật -> Download")
+
+            self.logger.info(
+                f"Updating {project_name}"
+            )
+
+            path = self.download_project(project_name)
+
+        else:
+
+            filename = f"{project_name}.docx"
+
+            path = self.cache.get_file_path(filename)
+
+        return path
 
