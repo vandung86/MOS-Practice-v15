@@ -183,3 +183,43 @@ class UpdateManager:
 
         return path
 
+    def update_all_projects(self):
+        """
+        Kiểm tra toàn bộ Project.
+        """
+
+        config = self.config.load()
+
+        projects = config["projects"]
+
+        
+        for project_name in projects:
+
+            self.logger.info(
+                f"Checking {project_name}"
+            )
+
+            if self.need_download(
+                project_name
+            ):
+
+                self.logger.info(
+                    f"Updating {project_name}"
+                )
+
+                self.download_project(
+                    project_name
+                )
+
+    def start_background_update(self):
+        """
+        Chạy cập nhật Project ở chế độ nền.
+        """
+
+        import threading
+
+        threading.Thread(
+            target=self.update_all_projects,
+            daemon=True
+        ).start()
+
