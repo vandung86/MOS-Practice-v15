@@ -9,7 +9,9 @@ class WordManager:
 
         self.logger = logger
         
-        self.update = UpdateManager()
+        self.update = UpdateManager(
+            self.logger
+        )
 
     def download(self, project_name):
         """

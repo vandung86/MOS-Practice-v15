@@ -8,12 +8,12 @@ Update Manager
 from app.cloud import CloudManager
 from app.cache import CacheManager
 from app.config_manager import ConfigManager
-from app.logger_manager import LoggerManager
+
 
 
 class UpdateManager:
 
-    def __init__(self):
+    def __init__(self, logger):
 
         self.cloud = CloudManager()
 
@@ -21,7 +21,7 @@ class UpdateManager:
 
         self.config = ConfigManager()
 
-        self.logger = LoggerManager().logger
+        self.logger = logger
 
     def download_project(self, project_name):
         """
@@ -55,6 +55,11 @@ class UpdateManager:
             filename
         )
 
+        self.logger.info(
+            f"Downloading {project_name}"
+        )
+    
+
     def download_questions(self):
         """
         Download questions.json từ Cloud.
@@ -62,19 +67,21 @@ class UpdateManager:
 
         url = self.config.questions_url()
 
-        print("=" * 50)
-        print("Questions URL:")
-        print(url)
-        print("=" * 50)
+        self.logger.info(
+            f"Questions URL: {url}"
+        )
 
         data = self.cloud.download_text(
         url
         )
 
-        print("=" * 50)
-        print("Questions Download:")
-        print(data[:200])      # chỉ in 200 ký tự đầu
-        print("=" * 50)
+        self.logger.info(
+            "Questions downloaded successfully"
+        )
+
+        self.logger.info(
+            f"Preview: {data[:100]}"
+        )
 
         self.cache.save_text(
             "questions.json",
@@ -146,6 +153,6 @@ class UpdateManager:
             f"{project_name} is up to date"
         )
 
-            return False
+        return False
     
 
