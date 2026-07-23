@@ -13,6 +13,13 @@ class WordManager:
             self.logger
         )
 
+    def start_background_update(self):
+        """
+        Khởi động cập nhật Project ở chế độ nền.
+        """
+
+        self.update.start_background_update()
+    
     
     def open(self, project_name):
         """
@@ -70,3 +77,7 @@ class WordManager:
         except Exception:
 
             raise
+
+    
+
+        

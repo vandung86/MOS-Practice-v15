@@ -65,7 +65,7 @@ class MOSPracticeApp:
             self.logger
         )
 
-        self.word_manager.update.start_background_update()
+        self.word_manager.start_background_update()
         
         self.window_manager = WindowManager(self.root)
         self.ui = UIManager(self)
