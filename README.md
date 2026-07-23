@@ -67,14 +67,14 @@ python main.py
 Dữ liệu được lưu trên Google Drive:
 
 - config.json
-- questions.txt
+- Word_Questions.json
 - Project Word (.docx)
 
 ---
 
 ## 👨‍💻 Tác giả
 
-Nguyễn Văn Dũng
+Nguyễn Văn Đựng
 
 ---
 
