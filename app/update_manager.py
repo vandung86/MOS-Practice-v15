@@ -47,8 +47,17 @@ class UpdateManager:
             data
         )
 
+        cloud_version = self.config.project_version(
+            project_name
+        )
+
+        self.cache.save_version(
+            project_name,
+            cloud_version
+        )
+
         self.logger.info(
-            f"Saved {filename}"
+            f"Saved version {cloud_version}"
         )
 
         return self.cache.get_file_path(
